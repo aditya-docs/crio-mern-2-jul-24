@@ -1,0 +1,15 @@
+{
+  "name": "session1",
+  "version": "1.0.0",
+  "description": "This is session1 of crio mern2 jul 24 batch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Aditya <aditya@something.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.0.0"
+  }
+}
