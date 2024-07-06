@@ -21,8 +21,8 @@ app.get("/currencies", getCurrencies);
 app.get("/currencies/:symbol", getCurrencyBySymbol);
 
 app.get("/users", getUsers);
-app.get("/users/:uuid", getUserById);
 app.get("/users/search", searchUsersByGenderOrAge);
+app.get("/users/:uuid", getUserById);
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);

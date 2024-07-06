@@ -27,7 +27,7 @@ const searchUsersByGenderOrAge = async (req, res) => {
   if (gender && age) {
     return res.send(
       response.data.data.filter(
-        (user) => user.gender === gender && user.dob.age == age
+        (user) => user.gender === gender && user.dob.age === Number(age)
       )
     );
   } else if (gender)
@@ -35,7 +35,9 @@ const searchUsersByGenderOrAge = async (req, res) => {
       response.data.data.filter((user) => user.gender === gender)
     );
   else if (age)
-    return res.send(response.data.data.filter((user) => user.dob.age == age));
+    return res.send(
+      response.data.data.filter((user) => user.dob.age === Number(age))
+    );
   else
     res.status(400).send({
       message:
