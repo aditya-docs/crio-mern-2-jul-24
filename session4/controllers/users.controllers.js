@@ -1,6 +1,5 @@
 // const usersJson = require("../users.json");
 const axios = require("axios");
-const { getQueryError } = require("../validators/users.validator");
 
 const downloadUsersFromAPI = async () =>
   axios.get(
@@ -8,8 +7,6 @@ const downloadUsersFromAPI = async () =>
   );
 
 const getUsers = async (req, res) => {
-  if (req.headers.authorization !== process.env.apiKey)
-    return res.sendStatus(401);
   const response = await downloadUsersFromAPI();
   res.send(response.data.data);
 };
@@ -26,24 +23,7 @@ const getUserById = async (req, res) => {
 
 const searchUsersByGenderOrAge = async (req, res) => {
   const { gender, age } = req.query;
-
   const response = await downloadUsersFromAPI();
-
-  const { error } = getQueryError({
-    gender,
-    age: age && Number(age),
-  });
-  // console.log(JSON.stringify(error, null, 2));
-  if (error) return res.status(400).send({ message: error.details[0].message });
-  // if ((age && isNaN(age)) || age < 0 || age > 100)
-  //   return res
-  //     .status(400)
-  //     .send({ message: "Age must be a number between 0 to 100" });
-
-  // if (gender && !validGenders.includes(gender))
-  //   return res
-  //     .status(400)
-  //     .send({ message: "Gender must be either male or female" });
 
   if (gender && age) {
     return res.send(

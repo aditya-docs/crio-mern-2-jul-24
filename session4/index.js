@@ -5,6 +5,7 @@ require("dotenv").config();
 // const currenciesJson = require("./currencies.json");
 const currencyRouter = require("./routes/currencies.routes");
 const userRouter = require("./routes/users.routes");
+const verifyAuth = require("./middlewares/verifyAuth");
 
 const app = express();
 const PORT = 8082;
@@ -14,6 +15,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/currencies", currencyRouter);
+
+//app.use(verifyAuth);
 
 app.use("/users", userRouter);
 
