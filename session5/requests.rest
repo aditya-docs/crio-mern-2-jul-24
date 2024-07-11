@@ -1,0 +1,36 @@
+GET http://localhost:8082/currencies
+###
+GET http://localhost:8082/currencies/inr
+###
+GET http://localhost:8082/currencies?min_value=0.01
+###
+GET http://localhost:8082/users
+# Authorization: LetMeIn
+###
+GET http://localhost:8082/users/6607d086-7159-4c26-beb1-280c9f9cbf35
+Authorization: LetMeIn
+###
+GET http://localhost:8082/users/search?gender=female
+Authorization: LetMeIn
+###
+POST http://localhost:8082/blogs
+Content-Type: application/json
+
+{
+    "title": "Stealer of Bdor trophies",
+    "content": "Messi steals his 8th bdor trophy thanks to france football",
+    "authors": ["rio ferdinand"]
+}
+###
+GET http://localhost:8082/blogs
+###
+GET http://localhost:8082/blogs/668d72e51e0f40112ac06858
+###
+DELETE http://localhost:8082/blogs/668d74176d57e56ea49943a4
+###
+PATCH http://localhost:8082/blogs/66900a3a232b894b53173828
+Content-Type: application/json
+
+{
+    "title": "Leo steals another bdor trophy"
+}
