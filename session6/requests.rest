@@ -17,23 +17,37 @@ POST http://localhost:8082/blogs
 Content-Type: application/json
 
 {
-    "title": "Travel blog on Newcastle",
+    "title": "Travel blog on Bristol",
     "authors": [{
-        "fullName": "Kieren Trippier",
-        "email": "trippier@newcastle.com",
-        "image": "https://abcd.com/author.png"
+        "fullName": "Trossard",
+        "email": "trossard@bristol.com",
+        "image": "https://abcd.com/trossard.png"
     }]
 }
 ###
 GET http://localhost:8082/blogs
 ###
-GET http://localhost:8082/blogs/668d72e51e0f40112ac06858
+GET http://localhost:8082/blogs/669017993e9db89244a60992
 ###
-DELETE http://localhost:8082/blogs/668d74176d57e56ea49943a4
+DELETE http://localhost:8082/blogs/6692b92916bdf7b645ae98fb
+
 ###
-PATCH http://localhost:8082/blogs/66900a3a232b894b53173828
+PATCH http://localhost:8082/blogs/669017993e9db89244a60992
 Content-Type: application/json
 
 {
-    "title": "Leo steals another bdor trophy"
+    "authors": [
+        {
+            "fullName": "Alan Shearer",
+            "email": "alan@newcastle.com"
+        }
+    ]
 }
+###
+GET http://localhost:8082/blogs/search?title=blog&author=kdb%40bestinprem.com
+###
+GET http://localhost:8082/blogs/search?title=blog
+###
+GET http://localhost:8082/blogs/search?author=kdb%40bestinprem.com
+###
+GET http://localhost:8082/blogs/search

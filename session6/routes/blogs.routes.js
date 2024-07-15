@@ -5,10 +5,14 @@ const {
   getBlogById,
   deleteBlogById,
   updateBlogById,
+  searchBlogs,
 } = require("../controllers/blogs.controllers");
-const verifyAuth = require("../middlewares/verifyAuth");
+
+const blogSearchValidator = require("../middlewares/blogSearchValidator");
 
 router.route("/").get(getBlogs).post(createBlog);
+
+router.get("/search", blogSearchValidator, searchBlogs);
 
 router
   .route("/:blogId")

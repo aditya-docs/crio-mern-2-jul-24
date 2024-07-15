@@ -1,8 +1,9 @@
-const Blog = require("../models/blog.model");
+const BlogService = require("../services/blog.service");
+const BlogServiceInstance = new BlogService();
 
 const getBlogs = async (req, res) => {
   try {
-    res.send(await Blog.find());
+    res.send(await BlogServiceInstance.getAll());
   } catch (error) {
     res.status(500).send({ message: "Oops! Something went wrong. Try again." });
   }
@@ -10,7 +11,7 @@ const getBlogs = async (req, res) => {
 
 const getBlogById = async (req, res) => {
   try {
-    const reqBlog = await Blog.findById(req.params.blogId);
+    const reqBlog = await BlogServiceInstance.getById(req.params.blogId);
     if (reqBlog) return res.send(reqBlog);
     res.status(404).send({ message: "Blog not found" });
   } catch (error) {
@@ -20,9 +21,8 @@ const getBlogById = async (req, res) => {
 
 const createBlog = async (req, res) => {
   try {
-    // const newBlog = await Blog.create(req.body)
-    const newBlog = new Blog(req.body);
-    await newBlog.save();
+    const newBlog = BlogServiceInstance.create(req.body);
+    await BlogServiceInstance.save(newBlog);
     res.status(201).send(newBlog);
   } catch (error) {
     if (error.code === 11000)
@@ -31,16 +31,16 @@ const createBlog = async (req, res) => {
         .send({ message: `Blog with this title already exists` });
     if (error._message === "Blog validation failed")
       return res.status(400).send({ message: error.message });
-    console.error(error);
     res.status(500).send({ message: "Oops something went wrong" });
   }
 };
 
 const deleteBlogById = async (req, res) => {
+  const { blogId } = req.params;
   try {
-    const reqBlog = await Blog.findById(req.params.blogId);
+    const reqBlog = await BlogServiceInstance.getById(blogId);
     if (reqBlog) {
-      await Blog.findByIdAndDelete(req.params.blogId);
+      await BlogServiceInstance.deleteById(blogId);
       return res.sendStatus(204);
     }
     res.status(404).send({ message: "Blog not found" });
@@ -50,13 +50,13 @@ const deleteBlogById = async (req, res) => {
 };
 
 const updateBlogById = async (req, res) => {
+  const { blogId } = req.params;
   try {
-    const reqBlog = await Blog.findById(req.params.blogId);
+    const reqBlog = await BlogServiceInstance.getById(blogId);
     if (reqBlog) {
-      const updatedBlog = await Blog.findByIdAndUpdate(
-        req.params.blogId,
-        req.body,
-        { new: true }
+      const updatedBlog = await BlogServiceInstance.updateById(
+        blogId,
+        req.body
       );
       return res.status(200).send(updatedBlog);
     }
@@ -66,10 +66,23 @@ const updateBlogById = async (req, res) => {
   }
 };
 
+const searchBlogs = async (req, res) => {
+  const { title, author } = req.query;
+  // res.send(await Blog.find({ title: title }));
+  // res.send(await Blog.find());
+  if (author && title)
+    return res.send(
+      await BlogServiceInstance.findByAuthorAndTitle(author, title)
+    );
+  if (author) return res.send(await BlogServiceInstance.findByAuthor(author));
+  if (title) return res.send(await BlogServiceInstance.findByTitle(title));
+};
+
 module.exports = {
   createBlog,
   getBlogs,
   getBlogById,
   deleteBlogById,
   updateBlogById,
+  searchBlogs,
 };

@@ -6,6 +6,7 @@ const userSearchValidator = (req, res, next) => {
     gender,
     age: age && Number(age),
   });
+  console.log(error);
   if (error) return res.status(400).send({ message: error.details[0].message });
   next();
 };
