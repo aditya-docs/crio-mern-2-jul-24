@@ -1,0 +1,17 @@
+POST http://localhost:8082/auth/signup
+Content-Type: application/json
+
+{
+    "fullName": "Shane Watson",
+    "username": "watsoncsk",
+    "email": "watson@csk.com",
+    "password": "shanewatson@iplmvp"
+}
+###
+POST http://localhost:8082/auth/login
+Content-Type: application/json
+
+{
+    "username": "watsoncsk",
+    "password": "shanewatson@iplmvp"
+}
