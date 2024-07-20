@@ -22,11 +22,22 @@ const postSignup = async (req, res) => {
 const postLogin = async (req, res) => {
   try {
     const reqUser = await UserServiceInstance.findByUsername(req.body.username);
+    const { isLoggedIn } = await AuthServiceInstance.login(
+      req.body.password,
+      reqUser.password
+    );
+    if (!isLoggedIn)
+      return res
+        .status(401)
+        .send({ message: "Username or password is incorret" });
     res
+      .cookie(
+        "remember_user_token",
+        AuthServiceInstance.generateJwt({ userId: reqUser._id }),
+        { maxAge: 60000, httpOnly: true }
+      )
       .status(200)
-      .send(
-        await AuthServiceInstance.login(req.body.password, reqUser.password)
-      );
+      .send({ isLoggedIn });
   } catch (error) {
     res
       .status(500)

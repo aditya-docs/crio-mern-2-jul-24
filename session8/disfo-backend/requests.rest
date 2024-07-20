@@ -2,16 +2,24 @@ POST http://localhost:8082/auth/signup
 Content-Type: application/json
 
 {
-    "fullName": "Shane Watson",
-    "username": "watsoncsk",
-    "email": "watson@csk.com",
-    "password": "shanewatson@iplmvp"
+    "fullName": "Yuvraj Singh",
+    "username": "yuvipaji",
+    "email": "yuvi@india.com",
+    "password": "yuvi6sixes@t20cwc2007"
 }
 ###
 POST http://localhost:8082/auth/login
 Content-Type: application/json
 
 {
-    "username": "watsoncsk",
-    "password": "shanewatson@iplmvp"
+    "username": "yuvipaji",
+    "password": "yuvi6sixes@t20cwc2007"
 }
+
+# {
+#     "username": "watsoncsk",
+#     "password": "shanewatson@iplmvp"
+# }
+###
+GET http://localhost:8082/user/watsoncsk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjlhOWVjYzkzYzkwYjY5OGQyZjU4NDkiLCJpYXQiOjE3MjE0OTQ1MTQsImV4cCI6MTcyMTQ5NDU3NH0.uKWG-zoAelmnhoJxIXH1ITbFaOAey0AW0piu92zPe4A
